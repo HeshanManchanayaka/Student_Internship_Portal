@@ -13,5 +13,5 @@ server:
   port: 8080
 
 jwt:
-  secret: mySecretKey12345678901234567890123456789012
+  secret: Z2VuZXJhdGVhLXJlc2VjdXJlLWxvbmdlci1rZXktd2l0aC0zMmJ5dGVz
   expiration: 86400000

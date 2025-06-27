@@ -9,6 +9,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -38,5 +41,28 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email)
                 .map(user -> modelMapper.map(user, UserDto.class))
                 .orElse(null);
+    }
+
+    @Override
+    public List<UserDto> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(user -> modelMapper.map(user, UserDto.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDto getUser(Long id) {
+        return userRepository.findById(id)
+                .map(user -> modelMapper.map(user, UserDto.class))
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new RuntimeException("User not found");
+        }
+        userRepository.deleteById(id);
     }
 }
