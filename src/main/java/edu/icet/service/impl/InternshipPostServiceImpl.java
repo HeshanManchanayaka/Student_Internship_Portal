@@ -3,6 +3,7 @@ package edu.icet.service.impl;
 import edu.icet.dtos.InternshipPostDto;
 import edu.icet.entities.InternshipPost;
 import edu.icet.entities.User;
+import edu.icet.enums.UserRole;
 import edu.icet.repository.InternshipPostRepository;
 import edu.icet.repository.UserRepository;
 import edu.icet.service.InternshipPostService;
@@ -33,12 +34,23 @@ public class InternshipPostServiceImpl implements InternshipPostService {
 
     @Override
     public List<InternshipPostDto> getInternshipsByCompany(Long companyId) {
-        return List.of();
+        User user = userRepository.findById(companyId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + companyId));
+
+        if (user.getRole() != UserRole.COMPANY) {
+            throw new RuntimeException("User with ID " + companyId + " is not a company");
+        }
+        return internshipPostRepository.findById(companyId).stream()
+                .map(entity->modelMapper.map(entity, InternshipPostDto.class))
+                .toList();
     }
 
     @Override
     public List<InternshipPostDto> getAllInternships() {
-        return List.of();
+        return internshipPostRepository.findAll()
+                .stream()
+                .map(post -> modelMapper.map(post, InternshipPostDto.class))
+                .toList();
     }
 
     @Override

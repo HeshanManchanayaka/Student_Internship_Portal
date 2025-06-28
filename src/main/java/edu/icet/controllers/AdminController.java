@@ -2,7 +2,6 @@ package edu.icet.controllers;
 
 import edu.icet.dtos.UserDto;
 import edu.icet.service.UserService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
