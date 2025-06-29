@@ -26,7 +26,9 @@ public class InternshipPostController {
     @GetMapping("/company/{companyId}")
     @PreAuthorize("hasRole('COMPANY') or hasRole('ADMIN')")
     public ResponseEntity<List<InternshipPostDto>> getInternshipsByCompany(@PathVariable Long companyId) {
-        return ResponseEntity.ok(internshipPostService.getInternshipsByCompany(companyId));
+        List<InternshipPostDto> dto = internshipPostService.getInternshipsByCompany(companyId);
+        System.out.println(dto);
+        return ResponseEntity.ok(dto);
     }
 
     @GetMapping

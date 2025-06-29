@@ -1,17 +1,29 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/Student_Internship_Portal?createDatabaseIfNotExist=true
-    username: root
-    password: 12345678
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 server:
   port: 8080
 
 jwt:
-  secret: Z2VuZXJhdGVhLXJlc2VjdXJlLWxvbmdlci1rZXktd2l0aC0zMmJ5dGVz
+  secret: ${JWT_SECRET}
   expiration: 86400000

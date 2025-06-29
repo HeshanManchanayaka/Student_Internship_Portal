@@ -44,4 +44,11 @@ public class ApplictionController {
     public ResponseEntity<List<ApplicationDto>> getApplicationsByCompany(@PathVariable Long companyId) {
         return ResponseEntity.ok(applicationService.getApplicationsByCompany(companyId));
     }
+
+    @PutMapping("/{applicationId}/status/{status}")
+    @PreAuthorize("hasRole('COMPANY') or hasRole('ADMIN')")
+    public ResponseEntity<ApplicationDto> updateApplicationStatus(@PathVariable Long applicationId,
+                                                                  @PathVariable String status) {
+        return ResponseEntity.ok(applicationService.updateApplicationStatus(applicationId, status));
+    }
 }

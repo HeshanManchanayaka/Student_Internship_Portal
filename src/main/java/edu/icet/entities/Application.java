@@ -18,19 +18,23 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "Student_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Student_id", nullable = false)
     private User student;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private ApplicationStatus status;
+
+    @Column(name = "resume_link", nullable = false)
     private String resumeLink;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "applied_at", nullable = false)
     private LocalDateTime appliedAt;
 
-    @ManyToOne
-    @JoinColumn(name = "internship_post_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "internship_post_id", nullable = false)
     private InternshipPost internshipPost;
 
     @PrePersist
